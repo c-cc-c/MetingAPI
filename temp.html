@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐API参数说明</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+        body {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px dashed #eee; /* 标题下划线改为虚线 */
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            margin: 30px 0 15px;
+            font-size: 18px;
+        }
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        /* 表格边框改为虚线，颜色稍浅更协调 */
+        .param-table th, .param-table td {
+            border: 1px dashed #ccc; 
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .param-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #000000;
+        }
+        .param-table tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        .example {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px dashed #c9d1d9; /* 示例框也加虚线边框 */
+            font-family: "Courier New", monospace;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        .example a {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        .hint {
+            margin-top: 10px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>音乐API使用说明</h1>
+    <p>通过URL参数获取歌曲、播放列表、封面、歌词等音乐资源，示例链接自动适配当前服务器IP。</p>
+
+    <h2>必选参数（缺一不可）</h2>
+    <table class="param-table">
+        <thead>
+            <tr>
+                <th>参数名</th>
+                <th>作用</th>
+                <th>可选值</th>
+                <th>示例值</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>type</td>
+                <td>指定请求的资源类型</td>
+                <td>song（歌曲）、playlist（播放列表）、url（播放地址）、pic（封面）、lrc（歌词）</td>
+                <td>song</td>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>资源唯一ID（与type对应）</td>
+                <td>数字/字符串（需与数据源匹配）</td>
+                <td>1937066506（歌曲ID）、914645439（播放列表ID）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>可选参数（不填用默认值）</h2>
+    <table class="param-table">
+        <thead>
+            <tr>
+                <th>参数名</th>
+                <th>作用</th>
+                <th>默认值</th>
+                <th>可选值</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>server</td>
+                <td>选择音乐数据源</td>
+                <td>netease（网易云音乐）</td>
+                <td>netease（网易云）、tencent（QQ音乐）、kuwo（酷我音乐）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>常用请求示例</h2>
+    <div class="example">
+        获取单首歌曲信息（含播放地址/封面）<br>
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>/meting/?server=netease&type=song&id=1937066506" target="_blank">
+            http://<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>/meting/?server=netease&type=song&id=1937066506
+        </a><br>
+
+        获取播放列表所有歌曲<br>
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>/meting/?server=netease&type=playlist&id=914645439" target="_blank">
+            http://<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>/meting/?server=netease&type=playlist&id=914645439
+        </a><br>
+
+        单独获取歌曲播放地址<br>
+        <a href="http://<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>/meting/?server=netease&type=url&id=1937066506" target="_blank">
+            http://<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>/meting/?server=netease&type=url&id=1937066506
+        </a>
+    </div>
+    <p class="hint">
+        提示：点击示例链接可直接跳转测试，IP已自动填充当前服务器地址（<?php echo $_SERVER['SERVER_ADDR'] ?? '127.0.0.1'; ?>）。
+    </p>
+</body>
+</html>
